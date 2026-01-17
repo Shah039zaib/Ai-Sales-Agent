@@ -40,16 +40,30 @@ const config = {
     anonKey: process.env.SUPABASE_ANON_KEY
   },
 
-  // Google Gemini API Configuration
+  // Google Gemini API Configuration (Primary)
   gemini: {
     apiKey: process.env.GEMINI_API_KEY,
-    model: 'gemini-1.5-flash',
+    model: 'gemini-2.0-flash',
     generationConfig: {
       temperature: 0.3,
       maxOutputTokens: 500,
       topP: 0.8,
       topK: 40
     }
+  },
+
+  // OpenRouter Configuration (Fallback 1)
+  openrouter: {
+    apiKey: process.env.OPENROUTER_API_KEY,
+    baseUrl: 'https://openrouter.ai/api/v1',
+    model: 'meta-llama/llama-3.1-8b-instruct:free'
+  },
+
+  // Groq Configuration (Fallback 2)
+  groq: {
+    apiKey: process.env.GROQ_API_KEY,
+    baseUrl: 'https://api.groq.com/openai/v1',
+    model: 'llama-3.1-8b-instant'
   },
 
   // Google Sheets Configuration
