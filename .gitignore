@@ -1,0 +1,12 @@
+node_modules/
+.env
+database/*.sqlite
+database/*.sqlite-wal
+database/*.sqlite-shm
+*.log
+.DS_Store
+service-account.json
+whatsapp-agent.zip
+PRD.md
+DEPLOY.md
+package-lock.json

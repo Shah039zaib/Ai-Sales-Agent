@@ -1,0 +1,207 @@
+{
+    "business": {
+        "name": "Mega Agancy",
+        "tagline": "Quality Services You Can Trust",
+        "description": "We provide professional shopify store creation services with quality assurance and customer satisfaction guarantee.",
+        "working_hours": "24/7 AI Support, Human Support: 9 AM - 6 PM (Pakistan Time)",
+        "response_time": "Instant AI response, Human response within 2 hours",
+        "location": "Pakistan",
+        "contact_email": "hamaslala84@gmail.com",
+        "website": "https://megaagancy.info"
+    },
+    "services": [
+        {
+            "id": "service_001",
+            "name": "Basic Package",
+            "description": "Perfect for individuals and small projects. Includes essential features to get you started.",
+            "price": 5000,
+            "currency": "PKR",
+            "delivery_time": "3-5 days",
+            "features": [
+                "Feature 1 - Basic Setup",
+                "Feature 2 - Standard Support",
+                "Feature 3 - 1 Revision Included"
+            ],
+            "popular": false
+        },
+        {
+            "id": "service_002",
+            "name": "Standard Package",
+            "description": "Most popular choice for growing businesses. Includes advanced features and priority support.",
+            "price": 10000,
+            "currency": "PKR",
+            "delivery_time": "5-7 days",
+            "features": [
+                "Everything in Basic Package",
+                "Feature 4 - Advanced Customization",
+                "Feature 5 - Priority Support",
+                "Feature 6 - 3 Revisions Included"
+            ],
+            "popular": true
+        },
+        {
+            "id": "service_003",
+            "name": "Premium Package",
+            "description": "Complete solution for enterprises. Full features with dedicated support and unlimited revisions.",
+            "price": 25000,
+            "currency": "PKR",
+            "delivery_time": "7-10 days",
+            "features": [
+                "Everything in Standard Package",
+                "Feature 7 - Premium Customization",
+                "Feature 8 - Dedicated Support Manager",
+                "Feature 9 - Unlimited Revisions",
+                "Feature 10 - Priority Delivery"
+            ],
+            "popular": false
+        }
+    ],
+    "payment_methods": [
+        {
+            "method": "JazzCash",
+            "account_name": "Your Name",
+            "account_number": "03433111039",
+            "instructions": "Send payment to this number and share screenshot here."
+        },
+        {
+            "method": "EasyPaisa",
+            "account_name": "Your Name",
+            "account_number": "03433111039",
+            "instructions": "Send payment to this number and share screenshot here."
+        },
+        {
+            "method": "Bank Transfer",
+            "bank_name": "MCB Bank",
+            "account_title": "Shah Zaib",
+            "account_number": "1677385871000895",
+            "iban": "1677385871000895",
+            "instructions": "Transfer to this account and share receipt here."
+        }
+    ],
+    "advance_payment": {
+        "required": true,
+        "percentage": 20,
+        "minimum_amount": 1000,
+        "currency": "PKR",
+        "note": "Advance payment is required to confirm your order. Minimum Rs. 1,000 or 20% of total amount."
+    },
+    "faqs": [
+        {
+            "question": "What is your refund policy?",
+            "answer": "We offer a full refund if work has not started. Once work begins, refund terms depend on the progress made. Please discuss with our team for specific cases.",
+            "keywords": [
+                "refund",
+                "money back",
+                "cancel",
+                "cancellation"
+            ]
+        },
+        {
+            "question": "How long does delivery take?",
+            "answer": "Delivery time depends on the package: Basic (3-5 days), Standard (5-7 days), Premium (7-10 days). Rush delivery may be available for additional charges.",
+            "keywords": [
+                "delivery",
+                "time",
+                "how long",
+                "when",
+                "days"
+            ]
+        },
+        {
+            "question": "Do you offer revisions?",
+            "answer": "Yes! Basic package includes 1 revision, Standard includes 3 revisions, and Premium includes unlimited revisions.",
+            "keywords": [
+                "revision",
+                "change",
+                "modify",
+                "update",
+                "edit"
+            ]
+        },
+        {
+            "question": "How do I make payment?",
+            "answer": "We accept JazzCash, EasyPaisa, and Bank Transfer. After selecting your package, you'll receive payment details. Send the advance amount and share the screenshot with us.",
+            "keywords": [
+                "payment",
+                "pay",
+                "jazzcash",
+                "easypaisa",
+                "bank",
+                "transfer"
+            ]
+        },
+        {
+            "question": "Can I see samples of your work?",
+            "answer": "Yes! Please ask to speak with our team and they will share our portfolio with you.",
+            "keywords": [
+                "sample",
+                "portfolio",
+                "example",
+                "work",
+                "previous"
+            ]
+        },
+        {
+            "question": "Do you provide support after delivery?",
+            "answer": "Yes! All packages include 7 days of free support after delivery. Extended support packages are also available.",
+            "keywords": [
+                "support",
+                "after",
+                "help",
+                "issue",
+                "problem"
+            ]
+        }
+    ],
+    "human_handoff_triggers": [
+        "talk to human",
+        "speak to agent",
+        "real person",
+        "human please",
+        "agent",
+        "manager",
+        "complaint",
+        "not satisfied",
+        "speak to someone",
+        "call me",
+        "contact me",
+        "need help urgently",
+        "emergency"
+    ],
+    "frustration_indicators": [
+        "this is not working",
+        "useless",
+        "stupid bot",
+        "not helpful",
+        "waste of time",
+        "frustrated",
+        "angry",
+        "terrible",
+        "worst",
+        "pathetic"
+    ],
+    "greetings": {
+        "welcome": "Assalam o Alaikum! 👋 Welcome to {business_name}!\n\nMain aapki kya madad kar sakta hoon? 😊\n\n📋 *Hamare Packages:*\n• Basic Package - Rs. 5,000\n• Standard Package - Rs. 10,000 ⭐ (Popular)\n• Premium Package - Rs. 25,000\n\nKisi bhi package ke baare mein detail jaanne ke liye uska naam likh dein!",
+        "returning": "Welcome back! 🙏 Aap kaise hain?\n\nAaj main aapki kya madad kar sakta hoon?",
+        "after_hours": "Assalam o Alaikum! 👋 \n\nAbhi humari team available nahi hai, but main AI assistant aapki help karunga!\n\nAgar aap human agent se baat karna chahein to kal 9 AM - 6 PM ke beech contact karein. ✅"
+    },
+    "responses": {
+        "payment_received": "✅ Payment screenshot receive ho gaya hai!\n\nHumari team verify karke aapko confirm kar degi. Usually 30 minutes mein confirmation mil jata hai.\n\nShukriya! 🙏",
+        "payment_confirmed": "🎉 *Payment Confirmed!*\n\nAapka order #{order_id} confirm ho gaya hai.\n\n📦 Service: {service_name}\n💰 Amount: Rs. {amount}\n📅 Delivery: {delivery_time}\n\nKoi sawal ho to pooch sakte hain! 😊",
+        "payment_rejected": "❌ Payment Verification Failed\n\nHumein is payment ko verify karne mein issue hua hai.\n\nReason: {reason}\n\nPlease dubara payment karein ya humari team se baat karein. 🙏",
+        "handoff_initiated": "Zaroor! 🙋\n\nMain aapko humari team se connect kar raha hoon. Wo jald se jald aapse baat karenge.\n\n⏱️ Expected response time: 30 minutes (during working hours)\n\nShukriya for your patience! 🙏",
+        "out_of_scope": "Is sawal ka jawab mere paas nahi hai. 😅\n\nLekin main aapko humari team se connect kar deta hoon jo aapki better help kar sakenge!\n\nKya aap unse baat karna chahenge?",
+        "error": "Maaf kijiye, kuch technical issue aa gaya. 😔\n\nPlease thodi der baad try karein ya direct humari team se contact karein.\n\nContact: {admin_phone}"
+    },
+    "order_flow": {
+        "steps": [
+            "Select a package",
+            "Confirm order details",
+            "Make advance payment",
+            "Share payment screenshot",
+            "Wait for verification",
+            "Order confirmed - Work begins"
+        ],
+        "advance_note": "Advance payment confirm karne ke baad hi kaam shuru hota hai."
+    }
+}
