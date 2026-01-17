@@ -48,6 +48,28 @@ class WahaService {
      * @returns {Promise<Object>} - The API response
      */
     async sendText(chatId, text) {
+        // Try with original chatId first
+        let result = await this._sendTextInternal(chatId, text);
+
+        // If failed and chatId is @lid, try converting to @c.us
+        if (!result.success && chatId.includes('@lid')) {
+            const phoneNumber = chatId.replace('@lid', '');
+            const altChatId = `${phoneNumber}@c.us`;
+            console.log(`⚡ Retrying with @c.us format: ${altChatId}`);
+            result = await this._sendTextInternal(altChatId, text);
+
+            // If still failing, try with @s.whatsapp.net
+            if (!result.success) {
+                const altChatId2 = `${phoneNumber}@s.whatsapp.net`;
+                console.log(`⚡ Retrying with @s.whatsapp.net format: ${altChatId2}`);
+                result = await this._sendTextInternal(altChatId2, text);
+            }
+        }
+
+        return result;
+    }
+
+    async _sendTextInternal(chatId, text) {
         try {
             const response = await this.client.post(config.waha.endpoints.sendText, {
                 chatId: chatId,
@@ -336,25 +358,46 @@ class WahaService {
                 return null;
             }
 
-            // Handle @lid format (linked contacts) - extract proper chatId from _data
+            // Extract chatId - try multiple sources for @lid handling
             let chatId = message.chatId || message.from;
             let fromNumber = message.from;
-            
-            // If chatId is in @lid format, try to get proper phone from _data
+            let originalLid = null;
+
+            // If chatId is in @lid format, try to get proper phone from various sources
             if (chatId && chatId.includes('@lid')) {
-                // Try to get the actual phone number from _data.from
-                if (message._data && message._data.from && message._data.from.includes('@c.us')) {
+                originalLid = chatId; // Store original for fallback
+
+                // Try 1: _data.from with @c.us
+                if (message._data?.from?.includes('@c.us')) {
                     chatId = message._data.from;
                     fromNumber = message._data.from;
-                } else if (message._data && message._data.remote && message._data.remote.includes('@c.us')) {
+                }
+                // Try 2: _data.remote with @c.us
+                else if (message._data?.remote?.includes('@c.us')) {
                     chatId = message._data.remote;
                     fromNumber = message._data.remote;
+                }
+                // Try 3: _data.id.remote with @c.us
+                else if (message._data?.id?.remote?.includes('@c.us')) {
+                    chatId = message._data.id.remote;
+                    fromNumber = message._data.id.remote;
+                }
+                // Try 4: to field (our own number's format might help)
+                else if (message.to?.includes('@c.us')) {
+                    // Keep @lid but we know the format should work
+                    console.log(`📋 @lid detected, using original: ${chatId}`);
+                }
+
+                // Log the conversion for debugging
+                if (chatId !== originalLid) {
+                    console.log(`🔄 Converted @lid to @c.us: ${originalLid} -> ${chatId}`);
                 }
             }
 
             return {
                 messageId: message.id,
                 chatId: chatId,
+                originalChatId: originalLid, // Keep original @lid for reference
                 from: fromNumber,
                 phoneNumber: this.extractPhoneNumber(fromNumber),
                 body: message.body || '',
