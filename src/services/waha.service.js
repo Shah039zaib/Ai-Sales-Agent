@@ -336,16 +336,32 @@ class WahaService {
                 return null;
             }
 
+            // Handle @lid format (linked contacts) - extract proper chatId from _data
+            let chatId = message.chatId || message.from;
+            let fromNumber = message.from;
+            
+            // If chatId is in @lid format, try to get proper phone from _data
+            if (chatId && chatId.includes('@lid')) {
+                // Try to get the actual phone number from _data.from
+                if (message._data && message._data.from && message._data.from.includes('@c.us')) {
+                    chatId = message._data.from;
+                    fromNumber = message._data.from;
+                } else if (message._data && message._data.remote && message._data.remote.includes('@c.us')) {
+                    chatId = message._data.remote;
+                    fromNumber = message._data.remote;
+                }
+            }
+
             return {
                 messageId: message.id,
-                chatId: message.chatId || message.from,
-                from: message.from,
-                phoneNumber: this.extractPhoneNumber(message.from),
+                chatId: chatId,
+                from: fromNumber,
+                phoneNumber: this.extractPhoneNumber(fromNumber),
                 body: message.body || '',
                 timestamp: message.timestamp,
                 hasMedia: message.hasMedia || false,
                 mediaType: message.type || 'text',
-                isGroup: message.chatId?.includes('@g.us') || false,
+                isGroup: chatId?.includes('@g.us') || false,
                 quotedMessage: message.quotedMessage || null,
                 session: payload.session
             };
