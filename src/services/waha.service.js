@@ -48,25 +48,61 @@ class WahaService {
      * @returns {Promise<Object>} - The API response
      */
     async sendText(chatId, text) {
-        // Try with original chatId first
-        let result = await this._sendTextInternal(chatId, text);
+        let targetChatId = chatId;
 
-        // If failed and chatId is @lid, try converting to @c.us
+        // If chatId is @lid, try to get the real phone number using WAHA LID API
+        if (chatId.includes('@lid')) {
+            const lidNumber = chatId.replace('@lid', '');
+            const phoneNumber = await this.getLidPhoneNumber(lidNumber);
+            if (phoneNumber) {
+                targetChatId = phoneNumber;
+                console.log(`🔄 Converted LID to phone: ${chatId} -> ${targetChatId}`);
+            } else {
+                console.log(`⚠️ Could not resolve LID ${chatId}, trying original...`);
+            }
+        }
+
+        // Try with resolved/original chatId
+        let result = await this._sendTextInternal(targetChatId, text);
+
+        // If failed and we used LID originally, try fallback formats
         if (!result.success && chatId.includes('@lid')) {
-            const phoneNumber = chatId.replace('@lid', '');
-            const altChatId = `${phoneNumber}@c.us`;
+            const lidNumber = chatId.replace('@lid', '');
+
+            // Try @c.us format
+            const altChatId = `${lidNumber}@c.us`;
             console.log(`⚡ Retrying with @c.us format: ${altChatId}`);
             result = await this._sendTextInternal(altChatId, text);
 
-            // If still failing, try with @s.whatsapp.net
+            // Try @s.whatsapp.net format
             if (!result.success) {
-                const altChatId2 = `${phoneNumber}@s.whatsapp.net`;
+                const altChatId2 = `${lidNumber}@s.whatsapp.net`;
                 console.log(`⚡ Retrying with @s.whatsapp.net format: ${altChatId2}`);
                 result = await this._sendTextInternal(altChatId2, text);
             }
         }
 
         return result;
+    }
+
+    /**
+     * Get phone number from LID using WAHA API
+     * @param {string} lid - The LID number (without @lid suffix)
+     * @returns {Promise<string|null>} - Phone number in @c.us format or null
+     */
+    async getLidPhoneNumber(lid) {
+        try {
+            // WAHA API: GET /api/{session}/lids/{lid}
+            const response = await this.client.get(`/api/${this.session}/lids/${lid}`);
+            if (response.data && response.data.pn) {
+                console.log(`✅ LID resolved: ${lid}@lid -> ${response.data.pn}`);
+                return response.data.pn;
+            }
+            return null;
+        } catch (error) {
+            console.log(`⚠️ LID lookup failed for ${lid}:`, error.message);
+            return null;
+        }
     }
 
     async _sendTextInternal(chatId, text) {
